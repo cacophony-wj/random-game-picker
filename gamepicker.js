@@ -1,6 +1,6 @@
-const open = require('open');
-const axios = require('axios');
-const weightedRand = require('weighted-random');
+import open from open;
+import axios from axios;
+import weightedRand from weighted-random;
 
 const IGDB = {
   id: 0,
