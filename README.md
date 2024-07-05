@@ -15,11 +15,15 @@ To start getting random games, do the following:
 6. [Register](https://dev.twitch.tv/console/apps/create) an application for your gamepicker app.
    1. OAuth Redirect URLs can just be http://localhost.
    2. Category can be `Application Integration`
-7. Once registered, [manage](https://dev.twitch.tv/console/apps) your application you just created
 8. Generate a Client Secret.
-9.  Open `gamepicker.bat` and change the line `cd [YOUR_PATH_HERE]` to reflect the directory where the folder was cloned to. (This is useful because you can move the batch file elsewhere, and create shortcuts to run the batch file)
-10. Open `gamepicker.js` and change the constants `twitchClientID` and `twitchClientSecret` to reflect the client ID and the client secret you generated. These can both be found on the screen that you generated the secret on in Step 9.
-11. Run `node gamepicker.js`
+7. [Sign up](https://rawg.io/signup) for a RAWG account if you do not already have one, otherwise, login.
+8. [Request](https://rawg.io/apikey) an API key from RAWG.
+   1. URL can just be http://localhost.
+   2. You may need to provide other PII (personally identifiable information)
+10.  Open `gamepicker.bat` and change the line `cd [YOUR_PATH_HERE]` to reflect the directory where the folder was cloned to. (This is useful because you can move the batch file elsewhere, and create shortcuts to run the batch file)
+11. Open `gamepicker.js` and change the constants `twitchClientID` and `twitchClientSecret` to reflect the client ID and the client secret you generated for Twitch. These can both be found on the screen that you generated the secret on in Step 9.
+12. While still viewing `gamepicker.js` change the constant `rawgApiKey` to reflect the API key you requested for RAWG. It can be found on the API key page after you have requested one.
+13. Run `node gamepicker.js`
 
 Your default browser will automatically open to the page on either [IGDB](https://www.igdb.com) or [RAWG.io](https://rawg.io) for the game that was selected!
 Have fun gaming!!
