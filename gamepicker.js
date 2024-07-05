@@ -1,6 +1,6 @@
-import open from open;
-import axios from axios;
-import weightedRand from weighted-random;
+import open from 'open'
+import axios from 'axios'
+import weightedRand from 'weighted-random'
 
 const IGDB = {
   id: 0,
@@ -14,6 +14,7 @@ const rawgIO = {
 
 const twitchClientID = '';
 const twitchClientSecret = '';
+const rawgApiKey = '';
 const weights = [0, 40, 60, 70, 80, 90];
 
 function getRandomInt(min, max) {
@@ -81,11 +82,11 @@ async function getCount(authToken, rating) {
 }
 
 async function getRawgCount() {
-  try {
+  try { 
     const response = await axios({
-      url: 'https://api.rawg.io/api/games?page_size=1',
-      method: 'GET',
-      headers: { 'User-Agent': 'Random Game Picker' },
+	    url: `https://api.rawg.io/api/games?key=${rawgApiKey}&ordering=name`,
+		method: 'GET',
+		headers: { 'User-Agent': 'Random Game Picker' },
     });
 
     return response.data.count;
@@ -97,7 +98,7 @@ async function getRawgCount() {
 async function fetchRawgSlug(number) {
   try {
     const response = await axios({
-      url: `https://api.rawg.io/api/games?page=${number}&page_size=1`,
+	  url: `https://api.rawg.io/api/games?key=${rawgApiKey}&page_size=1&page=${number}`,
       method: 'GET',
       headers: { 'User-Agent': 'Random Game Picker' },
     });
@@ -127,7 +128,8 @@ async function pickGame() {
     } catch (err) {
       console.error(err);
     }
-  } else if (whichDB === rawgIO.id) {
+} else if (whichDB === rawgIO.id) {
+
     var count = await getRawgCount();
     var randomNumber = getRandomInt(1, count);
     var slug = await fetchRawgSlug(randomNumber);
