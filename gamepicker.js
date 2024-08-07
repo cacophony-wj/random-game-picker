@@ -2,21 +2,31 @@ import open from 'open'
 import axios from 'axios'
 import weightedRand from 'weighted-random'
 
-const IGDB = {
+// open = require('open');
+// const axios = require('axios');
+// const weightedRand = require('weighted-random');
+
+const Moby = {
   id: 0,
-  weight: 75,
+  weight: 100
+};
+  
+const IGDB = {
+  id: 1,
+  weight: 50,
 };
 
 const rawgIO = {
-  id: 1,
+  id: 2,
   weight: 25,
 };
 
+const mobyApiKey = '';
 const twitchClientID = '';
 const twitchClientSecret = '';
 const rawgApiKey = '';
 const weights = [0, 40, 60, 70, 80, 90];
-
+    
 function getRandomInt(min, max) {
   min = Math.ceil(min);
   max = Math.floor(max);
@@ -109,9 +119,39 @@ async function fetchRawgSlug(number) {
   }
 }
 
+async function getMobyGame() {
+  try {
+	const response = await axios({
+	  url: `https://api.mobygames.com/v1/games/random?api_key=${mobyApiKey}`,
+	  method: 'GET',
+	});
+
+    var mobyGames = response.data.games;
+	
+	var randomInRandom = getRandomInt(0,100);
+	
+	return response.data.games[randomInRandom];
+  } catch (err) {
+	console.error(err);
+  }
+}
+	  
+
 async function pickGame() {
-  var whichDB = weightedRand([IGDB.weight, rawgIO.weight]);
-  if (whichDB === IGDB.id) {
+  var whichDB = weightedRand([Moby.weight, IGDB.weight, rawgIO.weight]);
+    
+  if (whichDB === Moby.id) {
+	try {
+	  var game = await getMobyGame();
+	  
+	  var url = `https://mobygames.com/game/${game}`
+	  
+	  open(url);
+	}
+    catch (err) {
+	console.error (err);
+    } 
+  } else if (whichDB === IGDB.id) {
     try {
       var selectionIndex = weightedRand(weights);
       var rating = weights[selectionIndex];
